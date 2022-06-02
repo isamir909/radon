@@ -1,13 +1,13 @@
-const printDate=function(){
+const date = function () {
     console.log(01)
 }
-const printMonth=function(){
-    console.log(06)
+const month = function () {
+    console.log("June")
 }
-const getBatchInfo=function(){
+const info = function () {
     console.log("Roadon, W2D17, the topic for today is Nodejs module system")
 }
 
-module.exports.date=printDate()
-module.exports.month=printMonth()
-module.exports.bInfo=getBatchInfo()
+module.exports.date = date
+module.exports.month = month
+module.exports.info = info
