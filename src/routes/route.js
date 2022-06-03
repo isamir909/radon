@@ -83,10 +83,6 @@ router.get('/GET/films', function (req, res) {
 
 
 
-
-
-
-
 router.get('/GET/films/:filmId', function (req, res) {
     let filmList = [{
         "id": 1,
@@ -128,6 +124,21 @@ router.get('/GET/films/:filmId', function (req, res) {
 // //     console.log('The first element received from underscope function is '+firstElement)
 // //     res.send('My first ever api!')
 // // });
+
+// =======================problem 6,7=================================================
+
+
+// Using the package ‘lodash’ solve below problems(Write all this in route.js in /hello route handler)
+
+// - Create an array of strings containing the names all the months of a year and split the array into 4 equally sized sub-arrays using the chunk function. Print these sub-arrays
+
+// - Create an array containing the first 10 odd numbers. Using the tail function, return the last 9 elements of it and print them on console.
+
+// - Create 5 arrays of numbers containing a few duplicate values. Using the function union create a merged array with only unique values and print them
+
+// - Use the function fromPairs to create an object containing key value pairs. For example [“horror”,”The Shining"],[“drama”,”Titanic"],[“thriller”,”Shutter Island"],[“fantasy”,”Pans Labyrinth"]
+
+
 
 router.get('/hello', function (req, res) {
     const months = [...Array(12).keys()].map(key => new Date(0, key).toLocaleString('en', { month: 'long' }))
