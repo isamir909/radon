@@ -58,6 +58,33 @@ module.exports = router;
 // Write another api called GET /films. Instead of an array of strings define an array of
 //  movie objects this time. Each movie object should have values - id, name. An example of movies array is 
 
+router.get('/GET/films', function (req, res) {
+    let filmsList = [{
+        "id": 1,
+        "name": "The Shining"
+    },
+    {
+        "id": 2,
+        "name": "Incendies"
+    },
+    {
+        "id": 3,
+        "name": "Rang de Basanti"
+    },
+    {
+        "id": 4,
+        "name": "Finding Nemo"
+    }]
+
+
+    res.send(filmsList);
+});
+
+
+
+
+
+
 
 
 router.get('/GET/films/:filmId', function (req, res) {
@@ -90,6 +117,12 @@ router.get('/GET/films/:filmId', function (req, res) {
     }
 
 });
+
+
+  
+
+
+   
 
 
 
