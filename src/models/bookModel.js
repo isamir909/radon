@@ -7,17 +7,23 @@ const mongoose = require('mongoose')
 const bookSchema = new mongoose.Schema({
     bookName: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     authorName: String,
-    category: String,
+
+    category: {
+        type: String,
+        enum: [Finance, Health, Personallity Development, Self - help]
+    },
+
     publishedYear: Number,
-    
 
-    
-},{timestamps:true});
 
-module.exports=mongoose.model('Book',bookSchema)
+
+}, { timestamps: true });
+
+module.exports = mongoose.model('Book', bookSchema)
 
 
 
