@@ -1,15 +1,17 @@
 const express = require('express')
 const router =express.Router();
-const BookModel=require('../models/bookModel')
+// const BookModel=require('../models/bookModel')
 const bookController=require('../controllers/bookController')
 
 
-router.get("/test-me",function (req,res){
-    res.send("mu Book APi")
-});
+// router.get("/test-me",function (req,res){
+//     res.send("mu Book APi")
+// });
 
+// =========API for storing data into Database=============
 router.post("/storeData", bookController.storeData)
 
+// API for fetching data from database====================
 router.post("/getBookData", bookController.getBookData)
 
 module.exports = router;

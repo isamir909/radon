@@ -1,11 +1,15 @@
 const BookModel= require("../models/bookModel")
 
+// ======logic of API to recieve and store data into Database========
+
 const storeData= async function(req,res){
     let Data=req.body
     let saveData = await BookModel.create(Data)
     res.send(saveData)
 }
 
+
+// ======logic of API for fetching data from database========
 const getBookData = async function(req,res){
     let allBooksData= await BookModel.find()
     res.send({msg:allBooksData})
