@@ -1,48 +1,39 @@
 const express = require('express');
 const { route } = require('express/lib/application');
-const bookModel = require('../models/bookModel')
-const bookcontroller = require('../controllers/bookController')
+const { type, redirect } = require('express/lib/response');
+const { default: mongoose } = require('mongoose');
+const authorModel = require('../models/authorModel');
+// const bookModel = require('../models/bookModel');
+const booksDataModel = require('../models/bookModel')
+// const bookcontroller = require('../controllers/bookController')
 const router = express.Router();
+const bookAuthorHandller=require('../controllers/bookAuthorHandller')
 
 
 
-// ====================createBook : to create a new entry..use this api to create 11+ entries in your collection============
+router.post('/createAuthor',bookAuthorHandller.createAuthor )
 
-router.post('/createBook', bookcontroller.createbookData);
-
-
-
-// =================================bookList : gives all the books- their bookName and authorName only ===============================================================
-
-router.post('/bookList', bookcontroller.bookslistdata);
+router.post('/createBook',bookAuthorHandller.createBook )
 
 
 
-// ======================getBooksInYear: takes year as input in post request and gives list of all books published that year==================
+router.post('/booksByChetanBhagat', bookAuthorHandller.booksByChetanBhagat);
 
-
-router.post('/getBooksInYear', bookcontroller.getBooksInYear);
-
-// =======================================
-// getParticularBooks:- (this is a good one, make sincere effort to solve this) 
-// take any input and use it as a condition to fetch books that satisfy that condition
-//          *e.g if body had { name: “hi”} then you would fetch the books with this name
-//          *if body had { year: 2020} then you would fetch the books in this year
-//          *hence the condition will differ based on what you input in the request body  ============================
-
-router.post('/getParticularBooks',bookcontroller.getParticularBookslist);
-
-
-// ================getXINRBooks- request to return all books who have an Indian price tag of “100INR” or “200INR” or “500INR”=====================
-
-router.post('/getXINRBooks',bookcontroller.getXINRBooks)
+router.post('/updateBookPrice',bookAuthorHandller.updateBookPrice)
 
 
 
 
-// =====================getRandomBooks - returns books that are available in stock or have more than 500 pages ===================
 
-router.post('/getRandomBooks', bookcontroller.getRandomBooks);
+// router.post('/priceRange', async function(req,res){
+//     let bookPrice=await booksDataModel.find({price:{$gte:50,$lte:100}}).select({author_id:1})
+//     // console.log(bookPrice)
+
+
+// //     let auName=  bookPrice.map((author_name,author_id))==>{
+
+// //     }
+// // })
 
 
 
@@ -76,15 +67,16 @@ module.exports = router;
 
 
 
-// const UserModel= require("../models/userModel.js")
-// const UserController= require("../controllers/userController")
-// const BookController= require("../controllers/bookController")
 
 
-// router.post("/createUser", UserController.createUser  )
 
-// router.get("/getUsersData", UserController.getUsersData)
 
-// router.post("/createBook", BookController.createBook  )
 
-// router.get("/getBooksData", BookController.getBooksData)
+
+
+
+
+
+
+
+
