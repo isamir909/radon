@@ -30,7 +30,7 @@ router.post('/getBooksInYear', bookcontroller.getBooksInYear);
 //          *if body had { year: 2020} then you would fetch the books in this year
 //          *hence the condition will differ based on what you input in the request body  ============================
 
-// route.post('/getParticularBooks',bookcontroller.getParticularBookslist)
+router.post('/getParticularBooks',bookcontroller.getParticularBookslist);
 
 
 // ================getXINRBooks- request to return all books who have an Indian price tag of “100INR” or “200INR” or “500INR”=====================

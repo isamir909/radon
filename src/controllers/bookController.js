@@ -24,21 +24,21 @@ const getBooksInYear= async function (req, res) {
 
 
 const getParticularBookslist= async function(req,res){
-    authornameinput=req.query.body
-    totalPagesinput=req.query.body
 
-    let output=await bookModel.find(
-       {$and:[{authorename:authornameinput},{totalPages:totalPagesinput}]} 
-    )
+        let condition= req.body
+        let userinput=await bookModel.find(condition)
+        res.send({msg:userinput})
 
 }
 
 const getXINRBooks=async function (req, res) {
 
-    let xInrBooks = await bookModel.find({
-        $or: [{ "prices.indianPrice": "200INR" }, { "prices.indianPrice": "100INR" }, { "prices.indianPrice": "500INR" }]
-    })
+    // let xInrBooks = await bookModel.find({
+    //     $or: [{ "prices.indianPrice": "200INR" }, { "prices.indianPrice": "100INR" }, { "prices.indianPrice": "500INR" }]
+    // })
+                                                // OR
 
+let xInrBooks= await bookModel.find({"prices.indianPrice": {$in:["100INR","200INR","500INR"]}})
 
     res.send(xInrBooks)
 }
