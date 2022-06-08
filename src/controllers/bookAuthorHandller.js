@@ -16,7 +16,7 @@ let createBook=async function (req, res) {
 
 let booksByChetanBhagat=async function(req,res){
     let iD= await authorModel.find({ author_name:"Chetan Bhagat"}).select({"author_id":1,_id:0})
-    console.log(iD)
+    // console.log(iD)
     let bookdata= await booksDataModel.find({author_id:iD[0].author_id})
     res.send({msg:bookdata})
 }
@@ -40,9 +40,6 @@ let priceRange = async function(req,res){
    res.send(authorName);
       
   }
-
-
-
 
 
 
