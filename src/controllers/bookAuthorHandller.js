@@ -17,7 +17,7 @@ let createBook=async function (req, res) {
 let booksByChetanBhagat=async function(req,res){
     let iD= await authorModel.find({ author_name:"Chetan Bhagat"}).select({"author_id":1,_id:0})
     console.log(iD)
-    let bookdata= await bookModel.find({author_id:iD[0].author_id})
+    let bookdata= await booksDataModel.find({author_id:iD[0].author_id})
     res.send({msg:bookdata})
 }
 
@@ -30,9 +30,27 @@ let updateBookPrice=async function(req,res){
     res.send({msg:authorData,price})
 }
 
+
+let priceRange = async function(req,res){
+    let books = await booksDataModel.find({price:{$gte:50,$lte:100}}).select({author_id:1});
+    //  console.log(books)
+    books =books.map((book)=> book.author_id);
+    const authors =await authorModel.find({author_id:{$in: books}});
+    let authorName =authors.map((name)=> name.author_name);
+   res.send(authorName);
+      
+  }
+
+
+
+
+
+
+
 module.exports.createAuthor=createAuthor
 module.exports.createBook=createBook
 module.exports.booksByChetanBhagat=booksByChetanBhagat
 module.exports.updateBookPrice=updateBookPrice
+module.exports.priceRange=priceRange
 
 
