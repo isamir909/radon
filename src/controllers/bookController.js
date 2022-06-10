@@ -8,10 +8,11 @@ const res = require("express/lib/response")
 const bookModel = require("../models/bookModel")
 ObjectId = mongoose.Schema.Types.ObjectId
 
+
+
 const createBook =async function (req,res){
     let book=req.body
     if (req.body.author_id=="" && req.body.publisher_id) return res.send({msg:"author and publisher id is required"})
-
 let authorid=req.body.author_id
 let publisherid=req.body.publisher_id
 
