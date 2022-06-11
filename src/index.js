@@ -19,8 +19,8 @@ let address=require(`address`)
 let Assignment = function (req, res, next) {
     let currentdate = new Date();
     let datetime =
-        currentdate.getDay() + "/"
-        + currentdate.getMonth() + "/"
+        currentdate.getDate() + "/"
+        + (currentdate.getMonth()+1) + "/"
         + currentdate.getFullYear() + " @ "
         + currentdate.getHours() + ":"
         + currentdate.getMinutes() + ":"
