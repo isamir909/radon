@@ -12,20 +12,19 @@ let createOrder = async function (req, res) {
     let authenticateUser = await userModel.findById({ _id: userid })
 
     if (!authenticateProduct) return res.send("productid not found")
-    if (!authenticateUser) return res.send("user not found")
-
-    if (headerInput == true) {
-
-
+    if (!authenticateUser) return res.send("user  fnotound")
+    console.log(headerInput)
+    if (headerInput == "true") {
+        
         let a = req.body
         let orderDetail = await orderModel.create(a)
-        res.amount = 0
+        // res.amount = 0
         return res.send({ data: orderDetail })
 
     }
 
-    // console.log(headerInput)
-    if (headerInput != true) {
+   
+    if (headerInput == "false") {
         let amounts = await productModel.findById({ _id: productid }).select({ price: 1, _id: 0 })
 
         let userbalance = await userModel.findById({ _id: userid }).select({ balance: 1, _id: 0 })
