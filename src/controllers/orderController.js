@@ -17,8 +17,10 @@ let createOrder = async function (req, res) {
     if (headerInput == "true") {
         
         let a = req.body
+        Object.assign(a,{amount:0})
+        // console.log(a)
         let orderDetail = await orderModel.create(a)
-        // res.amount = 0
+        
         return res.send({ data: orderDetail })
 
     }
@@ -35,6 +37,8 @@ let createOrder = async function (req, res) {
 
             updateUserBalance = await userModel.findOneAndUpdate({ _id: userid }, { $set: { balance: balanceLeft } })
             let b = req.body
+        //   to send data without getting user input and sending to database
+            Object.assign(b,{amount:amounts.price})
             let orderDetails = await orderModel.create(b)
             return res.send({ data: orderDetails })
         }
