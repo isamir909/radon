@@ -46,6 +46,9 @@ const getUserData = async function (req, res) {
   res.send({ status: true, data: userDetails });
 };
 
+
+
+
 const updateUser = async function (req, res) {
   let userId = req.params.userId;
   let userData = req.body;
