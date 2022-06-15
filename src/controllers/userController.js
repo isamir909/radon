@@ -27,7 +27,7 @@ const loginUser = async function (req, res) {
       batch: "radon",
       organisation: "FUnctionUp",
     },
-    "functionUp-radon"
+    "functionup-radon"
   );
   res.setHeader("x-auth-token", token);
   res.send({ status: true, data: token });

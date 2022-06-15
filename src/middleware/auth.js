@@ -28,7 +28,9 @@ const authorise = async function (req, res, next) {
 
     let logedinUser = req.headers["x-auth-token"]
     if (!logedinUser) logedinUser = req.headers["x-auth-token"];
+  
     let decodeToken = jwt.verify(logedinUser, "functionup-radon")
+  
     let userFromLogin = decodeToken.userId
     let userFromRequest = req.params.userId
 
