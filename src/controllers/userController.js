@@ -2,86 +2,136 @@ const jwt = require("jsonwebtoken");
 const userModel = require("../models/userModel");
 
 const createUser = async function (req, res) {
+  try {
 
-  let data = req.body;
-  let savedData = await userModel.create(data);
 
-  res.send({ msg: savedData });
-};
+    let data = req.body;
+  
+      if((data.password && data.mobile &&data.firstName )===undefined){
+      res.status(400).send({err:"Bad request",msg:"please enter require fields:firstName,mobile and password " })
+      }
+    // }
+    else{
+      let savedData = await userModel.create(data);
+      res.status(201).send({ msg: savedData });
+      
+    }
+    
+  }
+
+  catch (error) {
+res.status(500).send({MSG:"error", err:error.message})
+  }
+}
+
+
+
 
 const loginUser = async function (req, res) {
-  let userName = req.body.emailId;
-  let password = req.body.password;
+  try{
+    let userName = req.body.emailId;
+    let password = req.body.password;
+  
+    let user = await userModel.findOne({ emailId: userName, password: password });
+    if (!user)
+      return res.status(403).send({
+        err:" Forbidden",
+        msg: "username or the password is not corerct",
+      });
+  
+  
+    let token = jwt.sign(
+      {
+        userId: user._id.toString(),
+        batch: "radon",
+        organisation: "FUnctionUp",
+      },
+      "functionup-radon"
+    );
+    res.setHeader("x-auth-token", token);
+    res.status(200).send({ status: true, data: token });
+  }
+  
+  catch(error){
+   
+  
+      res.status(500).send({ msg: "Error", error: err.message })
+  
+  }
 
-  let user = await userModel.findOne({ emailId: userName, password: password });
-  if (!user)
-    return res.send({
-      status: false,
-      msg: "username or the password is not corerct",
-    });
-
-
-  let token = jwt.sign(
-    {
-      userId: user._id.toString(),
-      batch: "radon",
-      organisation: "FUnctionUp",
-    },
-    "functionup-radon"
-  );
-  res.setHeader("x-auth-token", token);
-  res.send({ status: true, data: token });
-};
-
+  };
+ 
 
 
 const getUserData = async function (req, res) {
-
+try {
   let userId = req.params.userId;
   let userDetails = await userModel.findById(userId);
-  if (!userDetails)
-    return res.send({ status: false, msg: "No such user exists" });
 
-  res.send({ status: true, data: userDetails });
+  if (!userDetails)
+    return res.status(204).send({ status: false, msg: "No such user exists" });
+
+  res.status(200).send({ status: true, data: userDetails });
+} catch (error) {
+  res.status(500).send({ msg: "Error", error: err.message })
+}
+
 };
 
+
 const updateUser = async function (req, res) {
-  let userId = req.params.userId;
-  let userData = req.body;
-  let updatedUser = await userModel.findOneAndUpdate({ _id: userId }, userData);
-  res.send({ status: updatedUser, data: updatedUser });
+  try {
+    let userId = req.params.userId;
+    let userData = req.body;
+    let updatedUser = await userModel.findOneAndUpdate({ _id: userId }, userData);
+    res.status(200).send({ status: updatedUser, data: updatedUser });  
+  } 
+  catch (error) {
+    res.status(500).send({ msg: "Error", error: error.message }) 
+  }
+  
 };
 
 
 
 const postMessage = async function (req, res) {
-
+try {
   let updatedPosts = user.posts
   //add the message to user's posts
   updatedPosts.push(message)
   let updatedUser = await userModel.findOneAndUpdate({ _id: user._id }, { posts: updatedPosts }, { new: true })
 
   //return the updated user document
-  return res.send({ status: true, data: updatedUser })
+  return res.status(200).send({ status: true, data: updatedUser })
+} 
+catch (error) {
+  res.status(500).send({ msg: "Error", error: error.message })
+}
+
 }
 
 
 
 
 let deleteUser = async function (req, res) {
-  let userid = req.params.userId;
+  try {
+    let userid = req.params.userId;
 
-  let alreadyDeleted = await userModel.findOne({ _id: userid })
-if (alreadyDeleted.isDeleted) return res.send({ msg: "user already deleted" })
-
+    let alreadyDeleted = await userModel.findOne({ _id: userid })
+    if (alreadyDeleted.isDeleted) return res.send({ msg: "user already deleted" })
+  
   
     let idfounded = await userModel.findOneAndUpdate(
       { id: userid },
       { $set: { isDeleted: true } },
       { new: true }
     );
-  return  res.send({ msg: "Deleted", data: idfounded });
-    
+    return res.status(201).send({ msg: "Deleted", data: idfounded });
+  
+  
+  } catch (error) {
+    res.status(500).send({ msg: "Error", error: error.message })
+  }
  
 };
 
